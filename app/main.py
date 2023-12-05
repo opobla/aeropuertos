@@ -22,5 +22,5 @@ def handle_import():
 
 if __name__ == '__main__':
     PORT=os.environ['PORT']
-    APP.debug = os.environ.get("DEBUG", True).upper() == "TRUE"
+    APP.debug = os.environ.get("DEBUG", "True").upper() == "TRUE"
     APP.run(host='0.0.0.0', port=PORT)
