@@ -11,11 +11,11 @@ client = gcp_logging.Client()
 logger = client.logger('aeropuertos-log')
 
 # Configura el logger de Python para redirigir los logs a Cloud Logging
-cloud_handler = gcp_logging.handlers.CloudLoggingHandler(client, name='aeropuertos-log')
-cloud_handler.setLevel(logging.INFO)
+# cloud_handler = gcp_logging.handlers.CloudLoggingHandler(client, name='aeropuertos-log')
+#cloud_handler.setLevel(logging.INFO)
 
 # Añade el CloudLoggingHandler al logger
-logger.addHandler(cloud_handler)
+#logger.addHandler(cloud_handler)
 
 
 
