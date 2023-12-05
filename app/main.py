@@ -27,9 +27,7 @@ def handle_import():
     try:
         data = json.loads(flask.request.data)
         version=os.environ.get('VERSION', 'Desconocida')
-        logger.info("*** Recibida petición de importación ***")
         logger.log_struct(data, severity='INFO')
-
     except Exception as e:
         print(f"Error processing message: {e}")
         return '', 500
@@ -39,5 +37,5 @@ def handle_import():
 
 if __name__ == '__main__':
     PORT=os.environ['PORT']
-    APP.debug = os.environ.get("DEBUG", "True").upper() == "TRUE"
+    APP.debug = True
     APP.run(host='0.0.0.0', port=PORT)
