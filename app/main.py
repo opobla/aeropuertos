@@ -3,6 +3,21 @@ import socket
 import os
 import redis
 import json
+import logging
+from google.cloud import logging as gcp_logging
+
+# Configura el cliente de Cloud Logging
+client = gcp_logging.Client()
+logger = client.logger('aeropuertos-log')
+
+# Configura el logger de Python para redirigir los logs a Cloud Logging
+cloud_handler = gcp_logging.handlers.CloudLoggingHandler(client, name='aeropuertos-log')
+cloud_handler.setLevel(logging.INFO)
+
+# Añade el CloudLoggingHandler al logger
+logger.addHandler(cloud_handler)
+
+
 
 APP = flask.Flask(__name__)
 
@@ -12,7 +27,9 @@ def handle_import():
     try:
         data = json.loads(flask.request.data)
         version=os.environ.get('VERSION', 'Desconocida')
-        print(json.dumps(data, indent=4))
+        logger.info("*** Recibida petición de importación ***")
+        logger.log_struct(data, severity='INFO')
+
     except Exception as e:
         print(f"Error processing message: {e}")
         return '', 500
